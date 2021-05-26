@@ -5,7 +5,7 @@
 [![Discord](https://img.shields.io/discord/395260138493050890?style=for-the-badge)](http://discord.gg/ZF4aW5X)
 [![Black Otters](https://img.shields.io/static/v1?style=for-the-badge&label=Corpo&message=BlackOtters&color=C18155)](https://www.blackotters-corporation.com/)
 
-Here is a Arduino solution for custom Control Panel développed for Black Otters corporation.
+Here is a Arduino solution for custom Control Panel développed for Black Otters corporation for Star Citizen.
 
 
 ## Contents
