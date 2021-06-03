@@ -23,7 +23,7 @@ Here is a Arduino micro solution for custom Control Panel developped for Black O
 
 
 ## Credits
-[Joystick Library](https://github.com/MHeironimus/ArduinoJoystickLibrary) : Librairie Arduino pour simuler le comportement d'un Joystick.<br>
-[PCF8574 Library](https://github.com/xreef/PCF8574_library) : Librairie Arduino pour gérer les chipset PCF8574.<br>
+[Joystick Library](https://github.com/MHeironimus/ArduinoJoystickLibrary) : Arduino library to simulate a Joystick behavior.<br>
+[PCF8574 Library](https://github.com/xreef/PCF8574_library) : Arduino Library to manage chipset PCF8574.<br>
 
 
