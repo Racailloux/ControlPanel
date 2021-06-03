@@ -5,19 +5,20 @@
 [![Discord](https://img.shields.io/discord/395260138493050890?style=for-the-badge)](http://discord.gg/ZF4aW5X)
 [![Black Otters](https://img.shields.io/static/v1?style=for-the-badge&label=Corpo&message=BlackOtters&color=C18155)](https://www.blackotters-corporation.com/)
 
-Here is a Arduino solution for custom Control Panel développed for Black Otters corporation for Star Citizen.
+
+Here is a Arduino micro solution for custom Control Panel developped for Black Otters corporation for Star Citizen.
 
 
 ## Contents
-* ...
-
-## Installation
-
-1. ...
-
-
-## Known issues
-* ...
+* 3D printed case
+* Arduino Micro controlled with 5 modules PCF8574
+  * USB Controlled Joystick mode
+* Multiple controls optimized for Star Citizen usage (multi role : Fight + Mining)
+  * 1 Axis for Mining power
+  * 1 encoder for Throttle
+  * 39 Buttons :
+    * Backlight with led power controlled (potentiometer on the right of the case controls the LED powers)
+    * color coded lights : Red : Emergency / Yellow : Mode change / White : Reset / Green : Special buttons / Blue : Standard buttons
 
 
 ## Credits
