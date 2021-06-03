@@ -19,6 +19,7 @@ Here is a Arduino micro solution for custom Control Panel developped for Black O
   * 39 Buttons :
     * Backlight with led power controlled (potentiometer on the right of the case controls the LED powers)
     * color coded lights : Red : Emergency / Yellow : Mode change / White : Reset / Green : Special buttons / Blue : Standard buttons
+ * Layout to be added in Star Citizen (for keyboard users only, Multiple Joysticks need a parameterized installation)
 
 
 ## Credits
