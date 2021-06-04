@@ -10,11 +10,12 @@
 
    TODO :
    * Managing outputs for "fatal leds"
+   * Filtering + anti-rebounce buttons
 */
 #include <Joystick.h>
-#include "PCF8574.h"
+#include <PCF8574.h>
 
-// Handle serial messages only if debug is active (do not to save some more power)
+// Handle serial messages only if debug is active
 #define DEBUG   1
 
 
@@ -84,7 +85,7 @@ byte state_vtol         = false;
 byte state_qt_travel    = false;
 byte state_landing      = false;
 // PCF8574 @addr=23
-byte state_shield_top = false;
+byte state_shield_top    = false;
 byte state_shield_front  = false;
 byte state_shield_right  = false;
 byte state_shield_reset  = false;
@@ -105,27 +106,26 @@ byte state_consumable_3 = false;
 unsigned long enc_timer;
 
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Libraries objects declaration
 
 // Joystick declaration
 Joystick_ Joystick(
-  JOYSTICK_DEFAULT_REPORT_ID, // hidReportId - Default: 0x03 - Indicates the joystick's HID report ID. This value must be unique if you are creating multiple instances of Joystick. Do not use 0x01 or 0x02 as they are used by the built-in Arduino Keyboard and Mouse libraries.
-  JOYSTICK_TYPE_JOYSTICK,     // joystickType - Default: JOYSTICK_TYPE_JOYSTICK or 0x04 - Indicates the HID input device type. Supported values: JOYSTICK_TYPE_JOYSTICK or 0x04 - Joystick / JOYSTICK_TYPE_GAMEPAD or 0x05 - Gamepad / JOYSTICK_TYPE_MULTI_AXIS or 0x08 - Multi-axis Controller
-  39,                         // buttonCount - Default: 32 - Indicates how many buttons will be available on the joystick. Range 0 - 32
-  2,                          // hatSwitchCount - Default: 2 - Indicates how many hat switches will be available on the joystick. Range: 0 - 2
-  false,                      // includeXAxis - Default: true - Indicates if the X Axis is available on the joystick.
-  false,                      // includeYAxis - Default: true - Indicates if the Y Axis is available on the joystick.
-  true,                       // includeZAxis - Default: true - Indicates if the Z Axis (in some situations this is the right X Axis) is available on the joystick.
-  false,                      // includeRxAxis - Default: true - Indicates if the X Axis Rotation (in some situations this is the right Y Axis) is available on the joystick.
-  false,                      // includeRyAxis - Default: true - Indicates if the Y Axis Rotation is available on the joystick.
-  false,                      // includeRzAxis - Default: true - Indicates if the Z Axis Rotation is available on the joystick.
-  false,                      // includeRudder - Default: true - Indicates if the Rudder is available on the joystick.
-  false,                      // includeThrottle - Default: true - Indicates if the Throttle is available on the joystick. => Mining laser power
-  false,                      // includeAccelerator - Default: true - Indicates if the Accelerator is available on the joystick.
-  false,                      // includeBrake - Default: true - Indicates if the Brake is available on the joystick.
-  false);                     // includeSteering - Default: true - Indicates if the Steering is available on the joystick.
+  JOYSTICK_DEFAULT_REPORT_ID, // hidReportId
+  JOYSTICK_TYPE_JOYSTICK,     // joystickType. Supported values: JOYSTICK_TYPE_JOYSTICK or 0x04 - Joystick / JOYSTICK_TYPE_GAMEPAD or 0x05 - Gamepad / JOYSTICK_TYPE_MULTI_AXIS or 0x08 - Multi-axis Controller
+  39,                         // buttonCount
+  2,                          // hatSwitchCount
+  false,                      // includeXAxis
+  false,                      // includeYAxis
+  true,                       // includeZAxis => Mining laser power
+  false,                      // includeRxAxis
+  false,                      // includeRyAxis
+  false,                      // includeRzAxis
+  false,                      // includeRudder
+  false,                      // includeThrottle
+  false,                      // includeAccelerator
+  false,                      // includeBrake
+  false);                     // includeSteering
 
 // I²C declarations
 PCF8574 PCF20(0x20);
@@ -133,9 +133,6 @@ PCF8574 PCF21(0x21);
 PCF8574 PCF22(0x22);
 PCF8574 PCF23(0x23);
 PCF8574 PCF24(0x24);
-
-
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,10 +149,10 @@ void setup()
   
   // Initialize Joystick mode
   Joystick.begin();
+  
   // Prepare analog input for Mining laser power
   Joystick.setZAxisRange(0,1024);
 
-  
   // Prepare rotary encoder
   pinMode(PIN_ENC_CLK, INPUT_PULLUP);
   pinMode(PIN_ENC_DT, INPUT_PULLUP);
@@ -219,14 +216,6 @@ void loop()
   UpdateBoardButton(PIN_LIGHTS,         8, &state_lights);
   UpdateBoardButton(PIN_LOCK_DOORS,     9, &state_lock_doors);
   UpdateBoardButton(PIN_OPEN_DOORS,    10, &state_open_doors);
-
-/*
-  if(state_self_destruct == true) {digitalWrite(LED_SELF_DESTRUCT,  HIGH);}
-  else {digitalWrite(LED_SELF_DESTRUCT,  LOW);}
-  if(state_eject == 1) {digitalWrite(LED_EJECT,  HIGH);}
-  else {digitalWrite(LED_EJECT,  LOW);}
-  digitalWrite(LED_JETTISON_CARGO,  state_jettison_cargo);
-  */
 
   // Update buttons from PCF8574 @addr=20
   PCF8574::DigitalInput di20 = PCF20.digitalReadAll();
@@ -295,24 +284,6 @@ void loop()
   UpdateButton(di24.p3, 36, &state_consumable_1);
   UpdateButton(di24.p4, 37, &state_consumable_2);
   UpdateButton(di24.p5, 38, &state_consumable_3);
-
-
-/*
-Serial.print("20_");Serial.print(di20.p0);Serial.print("-");Serial.print(di20.p1);Serial.print("-");Serial.print(di20.p2);Serial.print("-");Serial.print(di20.p3);Serial.print("-");Serial.print(di20.p4);Serial.print("-");Serial.print(di20.p5);Serial.print("-");Serial.print(di20.p6); Serial.print("-");Serial.print(di20.p7);
-
-di20 = PCF21.digitalReadAll();
-Serial.print(" 21_");Serial.print(di20.p0);Serial.print("-");Serial.print(di20.p1);Serial.print("-");Serial.print(di20.p2);Serial.print("-");Serial.print(di20.p3);Serial.print("-");Serial.print(di20.p4);Serial.print("-");Serial.print(di20.p5);Serial.print("-");Serial.print(di20.p6); Serial.print("-");Serial.print(di20.p7);
-
-di20 = PCF22.digitalReadAll();
-Serial.print(" 22_");Serial.print(di20.p0);Serial.print("-");Serial.print(di20.p1);Serial.print("-");Serial.print(di20.p2);Serial.print("-");Serial.print(di20.p3);Serial.print("-");Serial.print(di20.p4);Serial.print("-");Serial.print(di20.p5);Serial.print("-");Serial.print(di20.p6); Serial.print("-");Serial.print(di20.p7);
-
-di20 = PCF23.digitalReadAll();
-Serial.print(" 23_");Serial.print(di20.p0);Serial.print("-");Serial.print(di20.p1);Serial.print("-");Serial.print(di20.p2);Serial.print("-");Serial.print(di20.p3);Serial.print("-");Serial.print(di20.p4);Serial.print("-");Serial.print(di20.p5);Serial.print("-");Serial.print(di20.p6); Serial.print("-");Serial.print(di20.p7);
-
-di20 = PCF24.digitalReadAll();
-Serial.print(" 24_");Serial.print(di20.p0);Serial.print("-");Serial.print(di20.p1);Serial.print("-");Serial.print(di20.p2);Serial.print("-");Serial.print(di20.p3);Serial.print("-");Serial.print(di20.p4);Serial.print("-");Serial.print(di20.p5);Serial.print("-");Serial.print(di20.p6); Serial.print("-");Serial.print(di20.p7);
-Serial.println("");
-*/
 
 } // End of "loop"
 
