@@ -6,8 +6,9 @@
 [![Black Otters](https://img.shields.io/static/v1?style=for-the-badge&label=Corpo&message=BlackOtters&color=C18155)](https://www.blackotters-corporation.com/)
 
 
-Here is a Arduino micro solution for custom Control Panel developped for Black Otters corporation for Star Citizen.
+## Introduction
 
+This is a project for custom Control Panel developped for Black Otters corporation for Star Citizen.
 
 ## Contents
 
@@ -39,10 +40,12 @@ Program of arduino Micro with 5 modules PCF8574
 ## Credits
 
 ### Arduino Libraries
+
 [Joystick Library](https://github.com/MHeironimus/ArduinoJoystickLibrary) : Arduino library to simulate a Joystick behavior.<br>
 [PCF8574 Library](https://github.com/xreef/PCF8574_library) : Arduino Library to manage chipset PCF8574.<br>
 
 ### Star citizen inspirations
-[Custom Starcitizen control panels](https://robertsspaceindustries.com/community/citizen-spotlight/3330-Custom-Starcitizen-Control-Panels)
-[Star Citizen Custom Controller](https://shinythinks.com/project/star-citizen-custom-controller/)
-[MAXED - Custom Star Citizen hardware. mk1 prototype](https://www.reddit.com/r/starcitizen/comments/9jc5qt/maxed_custom_star_citizen_hardware_mk1_prototype/)
+
+[Custom Starcitizen control panels](https://robertsspaceindustries.com/community/citizen-spotlight/3330-Custom-Starcitizen-Control-Panels)<br>
+[Star Citizen Custom Controller](https://shinythinks.com/project/star-citizen-custom-controller/)<br>
+[MAXED - Custom Star Citizen hardware. mk1 prototype](https://www.reddit.com/r/starcitizen/comments/9jc5qt/maxed_custom_star_citizen_hardware_mk1_prototype/)<br>
