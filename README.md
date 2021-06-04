@@ -10,15 +10,29 @@ Here is a Arduino micro solution for custom Control Panel developped for Black O
 
 
 ## Contents
-* 3D printed case
-* Arduino Micro controlled with 5 modules PCF8574
-  * USB Controlled Joystick mode
-* Multiple controls optimized for Star Citizen usage (multi role : Fight + Mining)
-  * 1 Axis for Mining power
-  * 1 encoder for Throttle
-  * 39 Buttons :
-    * Backlight with led power controlled (potentiometer on the right of the case controls the LED powers)
-    * color coded lights : Red : Emergency / Yellow : Mode change / White : Reset / Green : Special buttons / Blue : Standard buttons
+
+### 3D printed case
+* Fusion 360 3D models
+* Exported files in STL
+
+### Controls
+Multiple controls optimized for Star Citizen usage (multi role : Flight, Fight & Mining)
+* 1 Axis for Mining power
+* 1 encoder for Throttle
+* 39 Buttons :
+  * Backlight with led power controlled (potentiometer on the right of the case controls the LED powers)
+  * color coded lights : Red : Emergency / Yellow : Mode change / White : Reset / Green : Special buttons / Blue : Standard buttons
+
+### Sticker
+Template of sticker in SVG for front panel usage : Texts, logo, ...
+
+### Software
+Program of arduino Micro with 5 modules PCF8574
+* USB Controlled Joystick mode
+* Encoder & Axis management
+* Analog input to control PWM lighting level of LEDs
+
+### Star Citizen Layout
  * Layout to be added in Star Citizen (for keyboard users only, Multiple Joysticks need a parameterized installation)
 
 
