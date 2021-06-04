@@ -10,6 +10,9 @@
 [![English](https://raw.githubusercontent.com/yammadev/flag-icons/master/png/GB.png) English Section](#english-section)
 <br><br>
 
+
+<p align="center"><img src="https://cloud.sheepy.fr/index.php/apps/files_sharing/publicpreview/8WFDLJjTbtgygz2?x=1920&y=588&a=true&file=ControlPanel.jpg"  alt="Control Panel" /></p>
+
 # French section
 
 ## Introduction
