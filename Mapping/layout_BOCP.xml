@@ -1,11 +1,12 @@
-<ActionMaps version="1" optionsVersion="2" rebindVersion="2" profileName="BOCP">
- <CustomisationUIHeader label="BOCP" description="" image="">
+<ActionMaps version="1" optionsVersion="2" rebindVersion="2" profileName="BOCP_3-14">
+ <CustomisationUIHeader label="BOCP_3-14" description="" image="">
   <devices>
    <keyboard instance="1"/>
    <mouse instance="1"/>
    <joystick instance="1"/>
   </devices>
   <categories>
+   <category label="@ui_CCSeatGeneral"/>
    <category label="@ui_CCSpaceFlight"/>
    <category label="@ui_CCTurrets"/>
    <category label="@ui_CGLightControllerDesc"/>
@@ -18,10 +19,24 @@
  </CustomisationUIHeader>
  <options type="joystick" instance="1" Product="Black Otters Control Panel {80362341-0000-0000-0000-504944564944}"/>
  <modifiers />
- <actionmap name="spaceship_general">
+ <actionmap name="seat_general">
   <action name="v_eject">
    <rebind input="js1_button4"/>
   </action>
+  <action name="v_toggle_mining_mode">
+   <rebind input="js1_button38"/>
+  </action>
+  <action name="v_toggle_missile_mode">
+   <rebind input="js1_ "/>
+  </action>
+  <action name="v_toggle_quantum_mode">
+   <rebind input="js1_button20"/>
+  </action>
+  <action name="v_toggle_scan_mode">
+   <rebind input="js1_button37"/>
+  </action>
+ </actionmap>
+ <actionmap name="spaceship_general">
   <action name="v_flightready">
    <rebind input="js1_button8"/>
   </action>
@@ -89,17 +104,16 @@
   <action name="v_toggle_landing_system">
    <rebind input="js1_button19"/>
   </action>
-  <action name="v_toggle_qdrive_engagement">
-   <rebind input="js1_button22"/>
-  </action>
-  <action name="v_toggle_qdrive_spooling">
-   <rebind input="js1_button20"/>
-  </action>
   <action name="v_toggle_vtol">
    <rebind input="js1_button21"/>
   </action>
   <action name="v_yaw">
    <rebind input="js1_ "/>
+  </action>
+ </actionmap>
+ <actionmap name="spaceship_quantum">
+  <action name="v_toggle_qdrive_engagement">
+   <rebind input="js1_button22"/>
   </action>
  </actionmap>
  <actionmap name="spaceship_targeting_advanced">
@@ -129,19 +143,14 @@
   </action>
  </actionmap>
  <actionmap name="spaceship_scanning">
-  <action name="v_toggle_scan_mode">
+  <action name="v_dec_scan_focus_level">
+   <rebind input="js1_ "/>
+  </action>
+  <action name="v_inc_scan_focus_level">
+   <rebind input="js1_ "/>
+  </action>
+  <action name="v_toggle_fps_scan_mode">
    <rebind input="js1_button37"/>
-  </action>
- </actionmap>
- <actionmap name="spaceship_ping">
-  <action name="v_dec_ping_focus_angle">
-   <rebind input="js1_ "/>
-  </action>
-  <action name="v_inc_ping_focus_angle">
-   <rebind input="js1_ "/>
-  </action>
-  <action name="v_invoke_ping">
-   <rebind input="js1_ "/>
   </action>
  </actionmap>
  <actionmap name="spaceship_mining">
@@ -172,9 +181,6 @@
   <action name="v_toggle_mining_laser_type">
    <rebind input="js1_button39"/>
   </action>
-  <action name="v_toggle_mining_mode">
-   <rebind input="js1_button38"/>
-  </action>
  </actionmap>
  <actionmap name="turret_movement">
   <action name="turret_pitch">
@@ -196,9 +202,6 @@
   </action>
  </actionmap>
  <actionmap name="spaceship_missiles">
-  <action name="v_weapon_arm_missile">
-   <rebind input="js1_ "/>
-  </action>
   <action name="v_weapon_launch_missile">
    <rebind input="js1_ "/>
   </action>
@@ -232,19 +235,21 @@
    <rebind input="js1_button18"/>
   </action>
  </actionmap>
- <actionmap name="spaceship_power">
-  <action name="v_power_focus_shields">
-   <rebind input="js1_button26"/>
-  </action>
-  <action name="v_power_focus_thrusters">
+ <actionmap name="vehicle_capacitor_assignment">
+  <action name="v_capacitor_assignment_engine_combined_increase_max">
    <rebind input="js1_button24"/>
   </action>
-  <action name="v_power_focus_weapons">
-   <rebind input="js1_button25"/>
-  </action>
-  <action name="v_power_reset_focus">
+  <action name="v_capacitor_assignment_reset">
    <rebind input="js1_button23"/>
   </action>
+  <action name="v_capacitor_assignment_shield_combined_increase_max">
+   <rebind input="js1_button26"/>
+  </action>
+  <action name="v_capacitor_assignment_weapon_combined_increase_max">
+   <rebind input="js1_button25"/>
+  </action>
+ </actionmap>
+ <actionmap name="spaceship_power">
   <action name="v_power_throttle_down">
    <rebind input="js1_button1"/>
   </action>
