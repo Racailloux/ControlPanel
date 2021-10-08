@@ -10,13 +10,12 @@
 
    TODO :
    * Managing outputs for "fatal leds"
-   * Filtering + anti-rebounce buttons
 */
 #include <Joystick.h>
 #include <PCF8574.h>
 
 // Handle serial messages only if debug is active
-#define DEBUG   1
+#define DEBUG   0
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,9 +26,9 @@ const int PIN_ANA_BACKLIGHT = A2;
 // Mining laser power
 const int PIN_MINING_POWER  = A3;
 // Rotary encoder
-const int PIN_ENC_CLK    = 0;
-const int PIN_ENC_DT     = 1;
-const int ENC_STEP_NR = 20;     // Number of increments of the encoder
+const int PIN_ENC_CLK      = 0;
+const int PIN_ENC_DT       = 1;
+const int ENC_STEP_NR      = 20; // Number of increments of the encoder
 const int ENC_STRIKE_TIMER = 50; // Timer before button rise down for encoder movement in ms
 // Arduino inputs
 const int LED_SELF_DESTRUCT  = 4;
@@ -50,8 +49,6 @@ const int PIN_OPEN_DOORS     = 19;
 // Backlight
 byte backlight_level = 0;
 // Rotary encoder
-//byte state_enc_cw = false;
-//byte state_enc_ccw = false;
 int  state_enc_clk = LOW;
 long enc_position = -1;  // will change to "0" at startup
 // Arduino inputs
@@ -274,7 +271,6 @@ void loop()
   UpdateButton(di23.p4, 30, &state_shield_left);
   UpdateButton(di23.p5, 31, &state_shield_back);
   UpdateButton(di23.p6, 32, &state_shield_bottom);
-  
   
   // Update buttons from PCF8574 @addr=24
   PCF8574::DigitalInput di24 = PCF24.digitalReadAll();
