@@ -159,9 +159,9 @@ void setup()
   pinMode(PIN_ENC_DT, INPUT_PULLUP);
   
   // Prepare I/O from Arduino
-  pinMode(PIN_SELF_DESTRUCT,  INPUT);
-  pinMode(PIN_EJECT,          INPUT);
-  pinMode(PIN_JETTISON_CARGO, INPUT);
+  pinMode(PIN_SELF_DESTRUCT,  INPUT_PULLUP);
+  pinMode(PIN_EJECT,          INPUT_PULLUP);
+  pinMode(PIN_JETTISON_CARGO, INPUT_PULLUP);
   
   pinMode(PIN_MOTOR,          INPUT_PULLUP);
   pinMode(PIN_SYSTEM_READY,   INPUT_PULLUP);
@@ -178,9 +178,9 @@ void setup()
   PreparePcfInputs(&PCF23);
   PreparePcfInputs(&PCF24);
   // Led management
-  pinMode(LED_SELF_DESTRUCT,  INPUT_PULLUP);
-  pinMode(LED_EJECT,          INPUT_PULLUP);
-  pinMode(LED_JETTISON_CARGO, INPUT_PULLUP);
+  pinMode(LED_SELF_DESTRUCT,  OUTPUT);
+  pinMode(LED_EJECT,          OUTPUT);
+  pinMode(LED_JETTISON_CARGO, OUTPUT);
 } // End of "setup"
 
 
