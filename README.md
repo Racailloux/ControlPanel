@@ -98,6 +98,7 @@ Program of arduino Micro with 5 extension PCF8574 modules
 
 [Joystick Library](https://github.com/MHeironimus/ArduinoJoystickLibrary) : Arduino library to simulate a Joystick behavior.<br>
 [PCF8574 Library](https://github.com/xreef/PCF8574_library) : Arduino Library to manage PCF8574 chipset.<br>
+[Tools40](https://github.com/IndustrialShields/arduino-Tools40) : Arduino libraries used for debounce features.<br>
 
 ### Inspiration sources
 
