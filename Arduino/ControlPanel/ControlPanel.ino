@@ -13,6 +13,7 @@
 */
 #include <Joystick.h>
 #include <PCF8574.h>
+#include <Filter.h>
 
 // Handle serial messages only if debug is active
 #define DEBUG   0
@@ -101,8 +102,11 @@ byte state_consumable_3 = false;
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Timers declaration
 unsigned long enc_timer;
+DigitalFilter<200> filterSelfDestruct;
+DigitalFilter<200> filterEject;
+DigitalFilter<200> filterJettisonCargo;
 
-
+  
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Libraries objects declaration
 
@@ -155,9 +159,10 @@ void setup()
   pinMode(PIN_ENC_DT, INPUT_PULLUP);
   
   // Prepare I/O from Arduino
-  pinMode(PIN_SELF_DESTRUCT,  INPUT_PULLUP);
-  pinMode(PIN_EJECT,          INPUT_PULLUP);
-  pinMode(PIN_JETTISON_CARGO, INPUT_PULLUP);
+  pinMode(PIN_SELF_DESTRUCT,  INPUT);
+  pinMode(PIN_EJECT,          INPUT);
+  pinMode(PIN_JETTISON_CARGO, INPUT);
+  
   pinMode(PIN_MOTOR,          INPUT_PULLUP);
   pinMode(PIN_SYSTEM_READY,   INPUT_PULLUP);
   pinMode(PIN_LIGHTS,         INPUT_PULLUP);
@@ -173,20 +178,16 @@ void setup()
   PreparePcfInputs(&PCF23);
   PreparePcfInputs(&PCF24);
   // Led management
-  pinMode(LED_SELF_DESTRUCT,  OUTPUT);
-  pinMode(LED_EJECT,          OUTPUT);
-  pinMode(LED_JETTISON_CARGO, OUTPUT);
-  digitalWrite(LED_SELF_DESTRUCT,  LOW);
-  digitalWrite(LED_EJECT,          LOW);
-  digitalWrite(LED_JETTISON_CARGO, LOW);
-  
+  pinMode(LED_SELF_DESTRUCT,  INPUT_PULLUP);
+  pinMode(LED_EJECT,          INPUT_PULLUP);
+  pinMode(LED_JETTISON_CARGO, INPUT_PULLUP);
 } // End of "setup"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 /// Main program cyclically called
 void loop()
-{
+{  
   // Update backlight PWM level from Analog input
   int nAnaBackLight = analogRead(PIN_ANA_BACKLIGHT);
   int newBackLightLevel = (nAnaBackLight/4);
@@ -205,14 +206,14 @@ void loop()
   EncoderManagement(PIN_ENC_CLK, PIN_ENC_DT, 0, 1);
   
   // Update buttons from Arduino
-  UpdateBoardButton(PIN_SELF_DESTRUCT,  2, &state_self_destruct);
-  UpdateBoardButton(PIN_EJECT,          3, &state_eject);
-  UpdateBoardButton(PIN_JETTISON_CARGO, 4, &state_jettison_cargo);
-  UpdateBoardButton(PIN_MOTOR,          6, &state_motor);
-  UpdateBoardButton(PIN_SYSTEM_READY,   7, &state_system_ready);
-  UpdateBoardButton(PIN_LIGHTS,         8, &state_lights);
-  UpdateBoardButton(PIN_LOCK_DOORS,     9, &state_lock_doors);
-  UpdateBoardButton(PIN_OPEN_DOORS,    10, &state_open_doors);
+  UpdateBoardButton(PIN_SELF_DESTRUCT,  2, &state_self_destruct, &filterSelfDestruct);
+  UpdateBoardButton(PIN_EJECT,          3, &state_eject, &filterEject);
+  UpdateBoardButton(PIN_JETTISON_CARGO, 4, &state_jettison_cargo, &filterJettisonCargo);
+  UpdateBoardButton(PIN_MOTOR,          6, &state_motor, NULL);
+  UpdateBoardButton(PIN_SYSTEM_READY,   7, &state_system_ready, NULL);
+  UpdateBoardButton(PIN_LIGHTS,         8, &state_lights, NULL);
+  UpdateBoardButton(PIN_LOCK_DOORS,     9, &state_lock_doors, NULL);
+  UpdateBoardButton(PIN_OPEN_DOORS,    10, &state_open_doors, NULL);
 
   // Update buttons from PCF8574 @addr=20
   PCF8574::DigitalInput di20 = PCF20.digitalReadAll();
@@ -288,9 +289,15 @@ void loop()
 // Local functions
 
 // Generic button status update from I/O board
-byte UpdateBoardButton(int SwitchPinNr, int JoyButtonNr, byte* PreviousState)
+byte UpdateBoardButton(int SwitchPinNr, int JoyButtonNr, byte* PreviousState, DigitalFilter<200>* filter)
 {
-  UpdateButton(digitalRead(SwitchPinNr), JoyButtonNr, PreviousState);
+  int filtered;
+  if(filter != NULL) {
+    filtered = filter->update(digitalRead(SwitchPinNr));
+  }
+  else {filtered = digitalRead(SwitchPinNr);}
+  
+  UpdateButton(filtered, JoyButtonNr, PreviousState);
 } // End of "UpdateButton"
 
 
